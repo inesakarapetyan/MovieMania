@@ -2,6 +2,8 @@
 Django
 
 
+https://github.com/inesakarapetyan/MovieMania/assets/165501683/a1781493-2c4c-4361-9c80-3777211c9c85
+
 
 
 
