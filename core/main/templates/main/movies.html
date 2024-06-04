@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{{logo.logo.url}}" type="">
+
+  <title> All Movies </title>
+  
+  <!-- Link to your CSS file -->
+<link rel="stylesheet" href="{% static 'styles.css'%}">
+</head>
+
+<body>
+
+    <header>
+        <a href="{% url 'cart' %}">Watch Later () </a>
+        <hr>
+    </header>
+
+
+    {% for i in movies_list %}
+        {% for j in i.cat_movie.all %}
+            <h2>{{j.name}}</h2>
+            <img src="{{ j.img.url }}" width="300px" alt="">
+            <h4>Rate : {{j.rate}}</h4>
+            <h4> Description :</h4> <p>{{ j.description }}</p>
+            <form action="{% url 'add_to_cart' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="movie_id" value="{{ j.id }}">Watch Now !</button> 
+                 <button type="submit" name="movie_id" value="{{ j.id }}">Add to Watch Later</button>
+            </form>
+            <hr>
+    {% endfor %}
+        {% endfor %}
+
+    
+</body>
+</html>
+
+
+

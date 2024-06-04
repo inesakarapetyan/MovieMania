@@ -1,0 +1,106 @@
+index.html 
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{{logo.img.url}}" type="">
+
+  <title> Movie Mania </title>
+  </head>
+<body>
+
+    <header>
+        <a href="% url 'cart' %"> Watch Later ({{cart_items|length}}) </a>
+        <hr>
+    </header>
+
+    {% for i in category_list %}
+        <h3>{{ i.name }}</h3>
+        <a href="{% url 'movies' i.id %}"><img src="{{ i.img.url }}" width="300px"  alt=""></a>
+        <hr>
+    {% endfor %}
+    
+</body>
+</html>
+
+
+
+movies.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All movies</title>
+</head>
+<body>
+
+    <header>
+        <a href="{% url 'cart' %}">Watch Later () </a>
+        <hr>
+    </header>
+
+
+    {% for i in movies_list %}
+        {% for j in i.cat_movie.all %}
+            <h2>{{j.name}}</h2>
+            <img src="{{ j.img.url }}" width="300px" alt="">
+            <h4>Rate : {{j.rate}}</h4>
+            <h4> Description :</h4> <p>{{ j.description }}</p>
+            <form action="{% url 'add_to_cart' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="movie_id" value="{{ j.id }}">Watch Now !</button> 
+                 <button type="submit" name="movie_id" value="{{ j.id }}">Add to Watch Later</button>
+            </form>
+            <hr>
+    {% endfor %}
+        {% endfor %}
+
+    
+</body>
+</html>
+
+
+
+cart.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Later Page</title>
+</head>
+<body>
+
+    <h1>Watch Later</h1>
+    <hr>
+    {% for i in cart_items %}
+        <p> <h2>{{ i.movie.name }}</h2> <img src="{{ i.movie.img.url }}" width="200px">
+            <form action="{% url 'delete_from_cart'%}" method="post">
+            {% csrf_token %}
+            <button type="submit" name="cart_items_id" value="{{ i.id }}">Delete</button>
+        </form>
+    </p>
+        <hr>
+    
+
+    {% empty %}
+        <p>No Movies yet.</p>
+        {% endfor %}
+
+    
+</body>
+</html>
+

@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{{logo.logo.url}}" type="">
+
+  <title> Watch Later Page </title>
+  
+  <!-- Link to your CSS file -->
+  <link rel="stylesheet" href="{% static 'styles.css'%}">
+</head>
+
+<body>
+
+    <h1>Watch Later</h1>
+    <hr>
+    {% for i in cart_items %}
+        <p> <h2>{{ i.movie.name }}</h2> <img src="{{ i.movie.img.url }}" width="200px">
+            <form action="{% url 'delete_from_cart'%}" method="post">
+            {% csrf_token %}
+            <button type="submit" name="cart_items_id" value="{{ i.id }}">Delete</button>
+        </form>
+    </p>
+        <hr>
+    
+
+    {% empty %}
+        <p>No Movies yet.</p>
+        {% endfor %}
+
+    
+</body>
+</html>

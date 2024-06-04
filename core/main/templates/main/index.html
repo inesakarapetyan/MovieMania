@@ -1,0 +1,39 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{{logo.logo.url}}" type="">
+
+  <title> Movie Mania </title>
+  
+  <!-- Link to your CSS file -->
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+    <header>
+        <a href="{% url 'cart' %}"> Watch Later ({{cart_items|length}}) </a>
+        <hr>
+    </header>
+
+
+    {% for i in category_list %}
+        <h3>{{ i.name }}</h3>
+        <a href="{% url 'movies' i.id %}"><img src="{{ i.img.url }}" width="300px"  alt=""></a>
+        <hr>
+    {% endfor %}
+    
+</body>
+</html>
